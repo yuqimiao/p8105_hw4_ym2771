@@ -40,7 +40,7 @@ iris_fill_NA
 
 # Problem 2
 
-```{r}
+```{r,message=FALSE}
 file_names <- paste("data/",list.files("data"),sep = "")
 study_df <- 
     map(file_names,read_csv) %>% 
@@ -52,6 +52,10 @@ study_df <-
     mutate(week = factor(as.numeric(week), levels = 1:8),
            group = factor(group,levels = c("con","exp"))) %>% 
     select(ID,everything(),-number)
+```
+
+
+```{r}
 study_df %>% 
     ggplot(aes(x = week,y = value,color = group, group = ID))+
     geom_line()
