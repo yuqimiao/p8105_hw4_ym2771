@@ -124,6 +124,7 @@ g2 <- rbind(mean_total,mean_reject) %>%
   geom_point() +
   geom_line()+
   labs(y =  "mean of estimation of beta1", title = "Comparison of mean estimation beta1 in total and rejected group.")
+g2
 
   
 ```
