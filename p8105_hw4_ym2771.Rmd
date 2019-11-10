@@ -60,7 +60,7 @@ study_df <-
 study_df %>% 
   ggplot(aes(x = week,y = value,color = group, group = ID))+
   geom_line() +
-  labs(title = "Spaghetti plot of experiment value among weeks")
+  labs(title = "Plot 1: Spaghetti plot of experiment value among weeks")
     
   
   
@@ -76,7 +76,6 @@ As shown in plot 1，The value of experiment group increases along time, but the
 
 # Problem 3
 
-
 ```{r}
 sim_reg <- function(beta1 = 0){
     n = 30
@@ -89,7 +88,7 @@ sim_reg <- function(beta1 = 0){
     
 }
 
-estimationa_beta1_1 <- 
+estimationa_beta1_0 <- 
     rerun(10000,sim_reg()) %>% 
     bind_rows()
 
@@ -113,11 +112,18 @@ g1 <- estimation %>%
   ggplot(aes(x = beta1, y = proportion))+
   geom_bar(stat = "identity")+
   geom_text(aes(y = proportion + 0.05,label = proportion))+
-  labs(y = "Proportion of rejection( P-value < 0.05)", title = "Power of different effective size")
+  labs(y = "Plot 2: Proportion of rejection( P-value < 0.05)", title = "Power of different effective size")
 
 g1
     
 ```
+
+## comment
+
+As Shown in Plot 2, the power is increasing as the effective size increase(defined as the difference as the null and alternative hypothesis of beta1 value). 
+
+The proportion of rejection when beta1 = 0 is the significance level of the hypothesis.
+
 
 ```{r}
 mean_total = estimation %>% 
@@ -135,10 +141,14 @@ g2 <- rbind(mean_total,mean_reject) %>%
   ggplot(aes(x = beta1, y = mean, color = category)) +
   geom_point() +
   geom_line()+
-  labs(y =  "mean of estimation of beta1", title = "Comparison of mean estimation beta1 in total and rejected group.")
+  labs(y =  "mean of estimation of beta1", title = "Plot 3: Comparison of mean estimation beta1 in total and rejected group.")
 g2
 
   
 ```
 
+## comment
 
+As shown in plot 3, total means of estimation of different beta1 are approximately equal to true parameter, since we simulated 10,000 times, but the means of estimation which are rejected of different beta1 are gradually approching to true parameter as the effective size increase. When effective size is close to 0, it is hard to reject the null hypothesis unless the estimation value falls in extremely small or extremely large situation (tails of true distribution), and extremly large situation is more likely to be rejected, thus the proportion of rejection is small (as shown in plot 2) and the mean value is larger than the true parameter.
+
+As the effective size increase, the differences between alternative and null distributions enlarge, it is more likely to fall in the rejection region of null hypothesis  and the proportion of rejected estimation is approximate to 1 in large effective size, thus the mean of rejection is approach to true parameter.
