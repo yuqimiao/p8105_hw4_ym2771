@@ -24,7 +24,7 @@ fill_missing <- function(vec){
         vec = ifelse(is.na(vec), "virginica",vec)
     }else{
         if (is.numeric(vec)) {
-            mean = mean(vec,na.rm = T)
+            mean = round(mean(vec,na.rm = T), 2)
             vec = ifelse(is.na(vec), mean,vec)
         }else{
             vec = vec
@@ -111,7 +111,7 @@ g1 <- estimation %>%
   ggplot(aes(x = beta1, y = proportion))+
   geom_bar(stat = "identity")+
   geom_text(aes(y = proportion + 0.05,label = proportion))+
-  labs(y = "Plot 2: Proportion of rejection( P-value < 0.05)", title = "Power of different effective size")
+  labs(y = "Proportion of rejection( P-value < 0.05)", title = "Plot 2: Power of different effective size")
 
 g1
     
@@ -148,8 +148,8 @@ g2
 
 ## comment
 
-As shown in plot 3, total means of estimation of different beta1 are approximately equal to true parameter, since we simulated 10,000 times, but the means of estimation which are rejected of different beta1 are gradually approching to true parameter as the effective size increase.
+As shown in plot 3, total means of estimation of different beta1 are approximately equal to true parameter, since we simulated 10,000 times with fairly large sample size, but the means of estimation which are rejected of different beta1 are gradually approching to true parameter as the effective size increases.
 
-When effective size is close to 0, it is hard to reject the null hypothesis unless the estimation value falls in extremely extremely situation (tails of true distribution), and estimation in extremly large situation is more likely to be generated and rejected, thus the proportion of rejection is small (as shown in plot 2) and the mean value is larger than the true parameter.
+When effective size is close to 0, it is hard to reject the null hypothesis unless the estimation value falls in extremely situation (tails of true distribution), and estimation in extremly large situation is more likely to be generated and rejected, thus the proportion of rejection is small (as shown in plot 2) and the mean value is larger than the true parameter.
 
-As the effective size increase, the differences between alternative and null distributions enlarge, it is more likely to fall in the rejection region of null hypothesis  and the proportion of rejected estimation is approximate to 1 in large effective size, thus the mean of rejection is approach to true parameter.
+As the effective size increase, the differences between alternative and null distributions enlarge, it is more likely to fall in the rejection region of null hypothesis and the proportion of rejected estimation is approximate to 1 in large effective size, thus the mean of rejection is approach to true parameter.
